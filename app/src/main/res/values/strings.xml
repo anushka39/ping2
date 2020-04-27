@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Ping</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_phone">Phone</string>
+    <string name="hint_username">Username</string>
+    <string name="hint_search">Search</string>
+    <string name="hint_message_text">enter message</string>
+    <string name="button_login">login</string>
+    <string name="button_signup">Signup</string>
+    <string name="button_apply">Apply</string>
+    <string name="button_signout">Signout</string>
+    <string name="text_signUp">No account? Go to signup</string>
+    <string name="text_login">Already have an account? Go to Login </string>
+
+    <string name="hello_status_update_fragment">Hello status update fragment</string>
+    <string name="hello_chats_fragment">Hello chats fragment</string>
+    <string name="hello_status_fragment">Hello status fragment</string>
+    <string name="hint_message">Message</string>
+    <string name="send_button_text">Send</string>
+
+</resources>
