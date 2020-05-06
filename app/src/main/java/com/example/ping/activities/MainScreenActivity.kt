@@ -20,18 +20,14 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.example.ping.R
 import com.example.ping.fragmentc.ChatsFragment
 import com.example.ping.fragmentc.FailureCallBack
-import com.example.ping.fragmentc.StatusFragment
+import com.example.ping.fragmentc.StatusListFragment
 import com.example.ping.fragmentc.StatusUpdateFragment
-import com.example.ping.util.DATA_USERS
-import com.example.ping.util.DATA_USER_PHONE
-import com.example.ping.util.PERMISSION_REQUEST_READ_CONTACTS
-import com.example.ping.util.REQUEST_NEW_CHAT
-import com.google.android.material.snackbar.Snackbar
+import com.example.ping.util.*
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_main_screen.*
-import kotlinx.android.synthetic.main.fragment_main.view.*
+
 
 class MainScreenActivity : AppCompatActivity(), FailureCallBack {
 
@@ -42,7 +38,7 @@ class MainScreenActivity : AppCompatActivity(), FailureCallBack {
 
     private val chatsFragment = ChatsFragment()
     private val statusUpdateFragment = StatusUpdateFragment()
-    private val statusFragment = StatusFragment()
+    private val statusListFragment = StatusListFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,6 +72,7 @@ class MainScreenActivity : AppCompatActivity(), FailureCallBack {
                     }
                     2 -> {
                         fabc.hide()
+                        statusListFragment.onVisible()
                     }
                 }
             }
@@ -108,7 +105,7 @@ class MainScreenActivity : AppCompatActivity(), FailureCallBack {
                 requestContactsPermission()
             }
         }else {
-            startNewActivity()
+            startNewActivity(REQUEST_NEW_CHAT)
         }
 
     }
@@ -121,20 +118,28 @@ class MainScreenActivity : AppCompatActivity(), FailureCallBack {
         when(requestCode) {
             PERMISSION_REQUEST_READ_CONTACTS -> {
                 if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    startNewActivity()
+                    startNewActivity(REQUEST_NEW_CHAT)
                 }
             }
         }
     }
 
-    fun startNewActivity(){
-        startActivityForResult(ContactsActivity.newIntent(this), REQUEST_NEW_CHAT)
+    fun startNewActivity(requestCode: Int){
+        when(requestCode){
+            REQUEST_NEW_CHAT -> startActivityForResult(ContactsActivity.newIntent(this), REQUEST_NEW_CHAT)
+            REQUEST_CODE_PHOTO -> {
+                val intent = Intent(Intent.ACTION_PICK)
+                intent.type = "image/*"
+                startActivityForResult(intent, REQUEST_CODE_PHOTO)
+            }
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(resultCode == Activity.RESULT_OK){
             when (requestCode) {
+                REQUEST_CODE_PHOTO -> statusUpdateFragment.storeImage(data?.data)
                 REQUEST_NEW_CHAT -> {
                     val name = data?.getStringExtra(PARAM_USER_NAME) ?: ""
                     val phone = data?.getStringExtra(PARAM_PHONE) ?: ""
@@ -189,8 +194,8 @@ class MainScreenActivity : AppCompatActivity(), FailureCallBack {
             return when(position) {
                 0-> statusUpdateFragment
                 1-> chatsFragment
-                2-> statusFragment
-                else -> statusFragment
+                2-> statusListFragment
+                else -> statusListFragment
 
             }
         }

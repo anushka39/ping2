@@ -3,11 +3,63 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragmentc.StatusUpdateFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_status_update_fragment" />
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/statusLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/update_status_background">
 
+    <Button
+        android:id="@+id/sendStatusButton"
+        style="@style/SendButton"
+        android:layout_width="@dimen/send_width"
+        android:layout_height="@dimen/send_height"
+        android:layout_margin="@dimen/grid_1x"
+        android:text="@string/button_update_status"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+    <EditText
+        android:id="@+id/statusET"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/sendStatusButton"
+        app:layout_constraintStart_toStartOf="parent"
+        android:padding="@dimen/grid_1x"
+        android:gravity="center_vertical"
+        android:paddingTop="@dimen/grid_1x"
+        android:hint="@string/hint_status"
+        android:minHeight="@dimen/send_min_height"
+        android:maxHeight="@dimen/send_max_height"/>
+
+    <ImageView
+        android:id="@+id/statusIV"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="center"
+        app:layout_constraintBottom_toTopOf="@+id/statusET"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:id="@+id/progressLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent_grey"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

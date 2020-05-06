@@ -26,3 +26,7 @@ val DATA_CHATS = "Chats"
 val DATA_CHAT_PARTICIPANTS = "chatParticipants"
 val DATA_CHAT_MESSAGES = "messages"
 val DATA_CHAT_MESSAGE_TIME  = "message time"
+
+val DATA_USER_STATUS= "status"
+val DATA_USER_STATUS_URL = "statusUrl"
+val DATA_USER_STATUS_TIME = "statusTime"

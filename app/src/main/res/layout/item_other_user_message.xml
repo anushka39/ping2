@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/grid_1x"
     android:gravity="left"
-    android:layout_gravity="left">
+    android:layout_gravity="left"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/messageTV"

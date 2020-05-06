@@ -49,3 +49,9 @@ fun getDate(s: Long?): String {
     }
     return  "Unknown"
 }
+
+
+fun getTime(): String{
+    val df = DateFormat.getDateInstance()
+    return df.format(Date())
+}

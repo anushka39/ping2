@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
-
+import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ping.R
 import com.example.ping.adapters.ConversationAdapter
@@ -35,6 +35,8 @@ class ConversationActivity : AppCompatActivity() {
         imageUrl = intent.extras.getString(PARAM_IMAGE_URL)
         chatName = intent.extras.getString(chatName)
         otherUserId = intent.extras.getString(PARAM_OTHER_USER_ID)
+        Log.d("TAG", " "+chatId+ " " +imageUrl+ " "+chatName+ " "+otherUserId)
+
 
         if (chatId.isNullOrEmpty() || userId.isNullOrEmpty()) {
             Toast.makeText(this, "chat room error", Toast.LENGTH_LONG).show()
@@ -71,14 +73,20 @@ class ConversationActivity : AppCompatActivity() {
             .orderBy(DATA_CHAT_MESSAGE_TIME)
             .addSnapshotListener{ querySnapshot, firebaseFirestoreException ->
                 if(firebaseFirestoreException != null){
+                    Log.d("TAG", "inside if "+firebaseFirestoreException.toString())
                     firebaseFirestoreException.printStackTrace()
                     return@addSnapshotListener
                 }else{
+                    Log.d("TAG", "inside else loop")
                     if (querySnapshot != null) {
+                        Log.d("TAG", "inside querysnapshot "+querySnapshot.documentChanges)
                         for (change in querySnapshot.documentChanges) {
+                            Log.d("TAG", "before when "+change)
                             when (change.type) {
                                 DocumentChange.Type.ADDED -> {
+                                    Log.d("TAG", "inside documentchange "+change)
                                     val message = change.document.toObject(Convo::class.java)
+                                    Log.d("TAG", ""+message)
                                     if (message != null) {
                                         conversationAdapter.addMessage(message)
                                         messagesRV.post {
@@ -94,9 +102,10 @@ class ConversationActivity : AppCompatActivity() {
             }
     }
         fun onSend(v: View) {
-
             if (!messageET.text.isNullOrEmpty()){
                val message = Convo(userId, messageET.text.toString(), System.currentTimeMillis())
+                Log.d("TAG", ""+message )
+                //Toast.makeText(this, text: ""+message , Toast.LENGTH_LONG).show()
                 firebaseDB.collection(DATA_CHATS).document(chatId!!)
                     .collection(DATA_CHAT_MESSAGES)
                     .document()
