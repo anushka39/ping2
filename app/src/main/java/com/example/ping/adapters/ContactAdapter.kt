@@ -24,8 +24,7 @@ class ContactAdapter(val contacts: ArrayList<Contact>): RecyclerView.Adapter<Con
         holder.bind(contacts[position], clickListener)
     }
 
-    fun
-            setOnItemClickListener(listener: ContactsClickListener){
+    fun setOnItemClickListener(listener: ContactsClickListener){
         clickListener = listener
         notifyDataSetChanged()
     }

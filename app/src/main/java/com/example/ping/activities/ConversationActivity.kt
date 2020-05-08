@@ -33,7 +33,7 @@ class ConversationActivity : AppCompatActivity() {
 
         chatId = intent.extras.getString(PARAM_CHAT_ID)
         imageUrl = intent.extras.getString(PARAM_IMAGE_URL)
-        chatName = intent.extras.getString(chatName)
+        chatName = intent.extras.getString(PARAM_CHAT_NAME)
         otherUserId = intent.extras.getString(PARAM_OTHER_USER_ID)
         Log.d("TAG", " "+chatId+ " " +imageUrl+ " "+chatName+ " "+otherUserId)
 
@@ -42,6 +42,7 @@ class ConversationActivity : AppCompatActivity() {
             Toast.makeText(this, "chat room error", Toast.LENGTH_LONG).show()
             finish()
         }
+
 
         topNameTV.text = chatName
         populateImage(this, imageUrl, topPhotoIV, R.drawable.default_user)
@@ -89,9 +90,7 @@ class ConversationActivity : AppCompatActivity() {
                                     Log.d("TAG", ""+message)
                                     if (message != null) {
                                         conversationAdapter.addMessage(message)
-                                        messagesRV.post {
-                                            messagesRV.smoothScrollToPosition(conversationAdapter.itemCount - 1)
-                                        }
+                                        messagesRV.smoothScrollToPosition(conversationAdapter.itemCount - 1)
                                     }
                                 }
                             }
