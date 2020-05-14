@@ -50,11 +50,10 @@ class StatusListAdapter(val statusList: ArrayList<StatusListElement>): RecyclerV
 
 
         fun bind(element: StatusListElement, listener: StatusItemClickListener?){
-            populateImage(elementIV.context, element.imageUrl, elementIV, R.drawable.default_user)
+            populateImage(elementIV.context, element.userUrl, elementIV, R.drawable.default_user)
             elementNameTV.text = element.userName
             elementTimeTV.text = element.statusTime
             layout?.setOnClickListener { listener?.onItemClicked(element) }
         }
     }
-
 }

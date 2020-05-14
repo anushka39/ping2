@@ -43,7 +43,7 @@ data class Convo(
 
 data class StatusListElement(
     val userName: String?,
-    val imageUrl: String?,
+    val userUrl: String?,
     val status: String?,
     val statusUrl: String?,
     val statusTime: String?
@@ -59,7 +59,7 @@ data class StatusListElement(
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(userName)
-        parcel.writeString(imageUrl)
+        parcel.writeString(userUrl)
         parcel.writeString(status)
         parcel.writeString(statusUrl)
         parcel.writeString(statusTime)
